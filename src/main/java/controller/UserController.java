@@ -49,6 +49,7 @@ else{
 
     @RequestMapping(value = "/insertUser")
     public String insertUser(User user){
+        userService.insertUser(user);
 
         return "redirect:/isps/user/login.jsp";
 
