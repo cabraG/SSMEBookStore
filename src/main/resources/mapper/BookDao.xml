@@ -26,8 +26,40 @@
         <association property="category" javaType="Category"/>
     </resultMap>
     
-    <select id="findbookbycid" resultType="int" resultMap="BookResultMap">
+    <select id="findbookbycid"  resultMap="BookResultMap">
         select * from t_book b,t_category c where b.cid=c.cid and b.cid =#{cid} limit #{pc},#{ps}
     </select>
+<select id="bookLoader" resultType="Book" parameterType="String">
+    select * from t_book where bid=#{bid}
+</select>
 
+    <select id="findbythreecount" resultType="int" parameterType="User">
+        select count(*) from t_book where 1 = 1
+
+            <if test="book.bname!=null and book.bname!=''">
+                and bname like  "%"#{book.bname}"%"
+            </if>
+            <if test="book.author!=null and book.author!=''">
+                and author like "%"#{book.author}"%"
+            </if>
+            <if test="book.press!=null and book.press!=''">
+                and press like "%"#{book.press}"%"
+            </if>
+
+    </select>
+    <select id="findbythree" resultMap="BookResultMap" parameterType="User">
+        select * from t_book where 1=1
+
+            <if test="book.bname!=null and book.bname!=''">
+                and bname like  "%"#{book.bname}"%"
+            </if>
+            <if test="book.author!=null and book.author!=''">
+                and author like "%"#{book.author}"%"
+            </if>
+            <if test="book.press!=null and book.press!=''">
+                and press like "%"#{book.press}"%"
+            </if>
+
+        LIMIT #{pc},#{ps};
+    </select>
 </mapper>

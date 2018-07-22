@@ -11,7 +11,7 @@
 			alert('请输入正确的页码！');
 			return;
 		}
-		location = "${pb.url}&pc=" + pc;
+		location = "${pb.url}&pc="+pc;
 	}
 </script>
 

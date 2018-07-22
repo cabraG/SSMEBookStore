@@ -46,13 +46,38 @@ else{
         return verifyCode.equalsIgnoreCase(vcode);
 
     }
-
+//注册用户
     @RequestMapping(value = "/insertUser")
     public String insertUser(User user){
         userService.insertUser(user);
 
-        return "redirect:/isps/user/login.jsp";
+        return "redirect:/jsps/user/login.jsp";
+
+    }
+//退出登录
+    @RequestMapping(value = "/quituser")
+    public String quituser(){
+        request.getSession().removeAttribute("sessionUser");
+        return "redirect:/index.jsp";
 
     }
 
+//ajax验证用户名是否注册
+    @RequestMapping(value = "ajaxValidateLoginname", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean ajaxValidateLoginname(HttpServletRequest request, HttpServletResponse response){
+        String loginname = request.getParameter("loginname");
+
+        return userService.selectLoginname(loginname);
+
+    }
+
+    //ajax验证邮箱是否注册
+
+    @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean validateEmail(HttpServletRequest request, HttpServletResponse response){
+        String email = request.getParameter("email");
+        return userService.selectemail(email);
+    }
 }

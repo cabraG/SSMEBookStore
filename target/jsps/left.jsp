@@ -42,7 +42,7 @@ $(function() {
 	*/
 <c:forEach items="${parents}" var="parent">
   <c:forEach items="${parent.children}" var="child">
-	bar.add("${parent.cname}", "${child.cname}",'${cp}findbookbycid?cid=${child.cid}',"body");
+	bar.add("${parent.cname}", "${child.cname}",'${cp}findbookbycid?cid=${child.cid}&pc=1',"body");
   </c:forEach>
 </c:forEach>
 	

@@ -28,20 +28,18 @@
 <c:forEach items="${pb.beanList }" var="book">
   <li>
   <div class="inner">
-    <a class="pic" href="<c:url value='/BookServlet?method=load&bid=${book.bid }'/>"><img src="<c:url value='/${book.image_b }'/>" border="0"/></a>
+    <a class="pic" href="<c:url value='/bookLoader?bid=${book.bid }'/>"><img src="<c:url value='/${book.image_b }'/>" border="0"/></a>
     <p class="price">
 		<span class="price_n">&yen;${book.currPrice }</span>
 		<span class="price_r">&yen;${book.price }</span>
 		(<span class="price_s">${book.discount }折</span>)
 	</p>
-	<p><a id="bookname" title="${book.bname }" href="<c:url value='/BookServlet?method=load&bid=${book.bid }'/>">${book.bname }</a></p>
+	<p><a id="bookname" title="${book.bname }" href="<c:url value='/bookLoader?bid=${book.bid }'/>">${book.bname }</a></p>
 	<%-- url标签会自动对参数进行url编码 --%>
-	<c:url value="/BookServlet" var="authorUrl">
-		<c:param name="method" value="findByAuthor"/>
+	<c:url value="/findbythree" var="authorUrl">
 		<c:param name="author" value="${book.author }"/>
 	</c:url>
-	<c:url value="/BookServlet" var="pressUrl">
-		<c:param name="method" value="findByPress"/>
+	<c:url value="/findbythree" var="pressUrl">
 		<c:param name="press" value="${book.press }"/>
 	</c:url>
 	<p><a href="${authorUrl }" name='P_zz' title='${book.author }'>${book.author }</a></p>

@@ -12,7 +12,7 @@ public class PageBean<T> {
 	private int pc;//当前页码
 	private int tr;//总记录数
 	private int ps;//每页记录数
-	private String url;//请求路径和参数，例如：/BookServlet?method=findXXX&cid=1&bname=2
+	private String url;//请求路径和参数
 	private List<T> beanList;
 	
 	// 计算总页数

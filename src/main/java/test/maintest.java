@@ -14,12 +14,7 @@ public class maintest {
 
     @Autowired
     BookService bookService;
-    @Test
-    public void planerror(){
-        String cid="5F79D0D246AD4216AC04E9C5FAB3199E";
-        for(Book book:bookService.findbookbycid(cid).getBeanList()){
-            System.out.println(book.getBname());
-        }
 
-    }
+
+
 }

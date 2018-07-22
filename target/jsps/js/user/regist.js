@@ -1,3 +1,5 @@
+var pathName = window.document.location.pathname;
+var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 $(function() {
     var pathName = window.document.location.pathname;
     var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
@@ -70,6 +72,9 @@ $(function() {
  * 登录名校验方法
  */
 function validateLoginname() {
+    var pathName = window.document.location.pathname;
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+
 	var id = "loginname";
 	var value = $("#" + id).val();//获取输入框内容
 	/*
@@ -96,20 +101,20 @@ function validateLoginname() {
 		 */
 		$("#" + id + "Error").text("用户名长度必须在3 ~ 20之间！");
 		showError($("#" + id + "Error"));
-		false;
+        return false;
 	}
 	/*
 	 * 3. 是否注册校验
 	 */
 	$.ajax({
-		url:"/goods/UserServlet",//要请求的servlet
-		data:{method:"ajaxValidateLoginname", loginname:value},//给服务器的参数
+		url:projectName+"/ajaxValidateLoginname",//要请求的servlet
+		data:{loginname:value},//给服务器的参数
 		type:"POST",
 		dataType:"json",
-		async:false,//是否异步请求，如果是异步，那么不会等服务器返回，我们这个函数就向下运行了。
+		async:true,//是否异步请求，如果是异步，那么不会等服务器返回，我们这个函数就向下运行了。
 		cache:false,
 		success:function(result) {
-			if(!result) {//如果校验失败
+			if(result) {//如果校验失败
 				$("#" + id + "Error").text("用户名已被注册！");
 				showError($("#" + id + "Error"));
 				return false;
@@ -225,14 +230,14 @@ function validateEmail() {
 	 * 3. 是否注册校验
 	 */
 	$.ajax({
-		url:"/goods/UserServlet",//要请求的servlet
-		data:{method:"ajaxValidateEmail", email:value},//给服务器的参数
+		url:projectName+"/validateEmail",//要请求的servlet
+		data:{email:value},//给服务器的参数
 		type:"POST",
 		dataType:"json",
-		async:false,//是否异步请求，如果是异步，那么不会等服务器返回，我们这个函数就向下运行了。
+		async:true,//是否异步请求，如果是异步，那么不会等服务器返回，我们这个函数就向下运行了。
 		cache:false,
 		success:function(result) {
-			if(!result) {//如果校验失败
+			if(result) {//如果校验失败
 				$("#" + id + "Error").text("Email已被注册！");
 				showError($("#" + id + "Error"));
 				return false;
@@ -277,21 +282,21 @@ function validateVerifyCode() {
 	/*
 	 * 3. 是否正确
 	 */
-	$.ajax({
-		url:"/goods/UserServlet",//要请求的servlet
-		data:{method:"ajaxValidateVerifyCode", verifyCode:value},//给服务器的参数
-		type:"POST",
-		dataType:"json",
-		async:false,//是否异步请求，如果是异步，那么不会等服务器返回，我们这个函数就向下运行了。
-		cache:false,
-		success:function(result) {
-			if(!result) {//如果校验失败
-				$("#" + id + "Error").text("验证码错误！");
-				showError($("#" + id + "Error"));
-				return false;
-			}
-		}
-	});
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        dataType: "json",
+        data: {verifyCode: value},
+        url: projectName+"/ajaxValidateVerifyCode",
+        success: function(flag) {
+            if(!flag) {
+                $("#verifyCodeError").css("display", "");
+                $("#verifyCodeError").text("错误的验证码！");
+                bool = false;
+            }
+        }
+    });
 	return true;		
 }
 

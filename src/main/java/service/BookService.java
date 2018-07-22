@@ -14,14 +14,43 @@ public class BookService {
 @Autowired
 private BookDao bookDao;
 
-    public PageBean<Book> findbookbycid(String cid) {
+    public PageBean<Book> findbookbycid(String cid,String pc) {
+        int thispc =0;
+        if(pc==null){
+            thispc =1;
+        }
+        else{
+            thispc=Integer.valueOf(pc).intValue();
+        }
         PageBean<Book> bookPageBean =new PageBean<Book>();
         bookPageBean.setTr(bookDao.findbookcount());
-        bookPageBean.setPc(1);
-        bookPageBean.setPs(12);
-        bookPageBean.setBeanList(bookDao.findbookbycid(cid,1,12));
+        bookPageBean.setPs(8);
+        bookPageBean.setPc(thispc);
+        bookPageBean.setBeanList(bookDao.findbookbycid(cid,(thispc-1)*8,8));
         return bookPageBean;
     }
 
 
+    public Book bookLoader(String bid) {
+       return bookDao.bookLoader(bid);
+
+    }
+
+    public PageBean<Book> findbythree(Book book,String pc) {
+        int thispc =0;
+        if(pc==null){
+            thispc =1;
+        }
+        else{
+            thispc=Integer.valueOf(pc).intValue();
+        }
+
+        PageBean<Book> bookPageBean =new PageBean<Book>();
+        bookPageBean.setTr(bookDao.findbythreecount(book));
+        bookPageBean.setPc(thispc);
+        bookPageBean.setPs(8);
+        bookPageBean.setBeanList(bookDao.findbythree(book,(thispc-1)*8,8));
+        return bookPageBean;
+
+    }
 }
