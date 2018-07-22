@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为接口方法提供sql语句配置 -->
+<mapper namespace="dao.BookDao">
+    <select id="findbookcount" resultType="int">
+        select count(*) from t_book
+    </select>
+    <resultMap id="BookResultMap" type="Book">
+        <id property="bid" column="bid"></id>
+        <result property="bname" column="bname"></result>
+        <result property="author" column="author"></result>
+        <result property="price" column="price"></result>
+        <result property="currPrice" column="currPrice"></result>
+        <result property="discount" column="discount"/>
+        <result property="press" column="press"/>
+        <result property="publishtime" column="publishtime"/>
+        <result property="edition" column="edition"/>
+        <result property="pageNum" column="pageNum"/>
+        <result property="wordNum" column="wordNum"/>
+        <result property="printtime" column="printtime"/>
+        <result property="booksize" column="booksize"/>
+        <result property="paper" column="paper"/>
+        <result property="image_w" column="image_w"/>
+        <result property="image_b" column="image_b"/>
+        <association property="category" javaType="Category"/>
+    </resultMap>
+    
+    <select id="findbookbycid" resultType="int" resultMap="BookResultMap">
+        select * from t_book b,t_category c where b.cid=c.cid and b.cid =#{cid} limit #{pc},#{ps}
+    </select>
+
+</mapper>

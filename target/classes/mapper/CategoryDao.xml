@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为接口方法提供sql语句配置 -->
+<mapper namespace="dao.CategoryDao">
+  <resultMap id="selectCategoryByPid" type="Category">
+      <id property="cid" column="cid"/>
+      <result property="cid" column="cid"/>
+      <result property="cname" column="cname"/>
+      <result property="pid" column="pid"/>
+      <result property="desc" column="desc"/>
+      <collection property="children" ofType="Category" select="findCategoriesByParentId" column="cid" javaType="java.util.List"/>
+   </resultMap>
+<select id="findCategoriesByParentId" resultMap="selectCategoryByPid" parameterType="String">
+    select * from t_category where
+    <choose>
+        <when test="_parameter ==null">
+            pid is null
+        </when>
+        <otherwise>
+            pid = #{_parameter}
+        </otherwise>
+    </choose>
+
+</select>
+<select id="findallCategory" resultType="Category">
+   select * from t_category
+</select>
+
+   <!-- <select id="selectUser" resultType="User">
+        SELECT * FROM t_sys_user
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userid">
+    insert into t_sys_user (usercode,password,deptid,birthday,cellphone,username) values (#{usercode},#{password},#{deptid},#{birthday},#{cellphone},#{username})
+</insert>
+    <update id="updateUser">
+         update t_sys_user set usercode = #{usercode}, username = #{username}, deptid = #{deptid}, birthday = #{birthday},cellphone=#{cellphone} where userid = #{userid}
+    </update>
+    <select id="showUpdateUser" resultType="User" parameterType="int">
+         SELECT * FROM t_sys_user where userid= #{userid}
+    </select>
+    <delete id="deleteUser" parameterType="int">
+        delete from t_sys_user where userid = #{userid}
+    </delete>-->
+</mapper>
