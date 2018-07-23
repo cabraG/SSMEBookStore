@@ -61,8 +61,8 @@
 			</tr>
 		</table>
 		<div class="divForm">
-			<form id="form1" action="<c:url value='/CartItemServlet'/>" method="post">
-				<input type="hidden" name="method" value="add"/>
+			<form id="form1" action="<c:url value='/cartiteminit'/>" method="post">
+
 				<input type="hidden" name="bid" value="${book.bid }"/>
   				我要买：<input id="cnt" style="width: 40px;text-align: center;" type="text" name="quantity" value="1"/>件
   			</form>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为接口方法提供sql语句配置 -->
+<mapper namespace="dao.OrderDao">
+    <resultMap id="OrderList" type="Order" >
+        <id property="oid" column="oid"></id>
+        <result property="ordertime" column="ordertime"/>
+        <result property="total" column="total"/>
+        <result property="status" column="status"/>
+        <result property="address" column="address"/>
+        <association property="owner" javaType="User">
+            <id property="uid" column="uid"></id>
+        </association>
+        <collection property="orderItemList" ofType="OrderItem" javaType="java.util.List" select="selecOrderItembyoid" column="oid">
+        </collection>
+    </resultMap>
+    
+    <resultMap id="OrderItemList" type="OrderItem">
+        <id property="orderItemId" column="orderItemId"></id>
+        <result property="subtotal" column="subtotal"/>
+        <result property="quantity" column="quantity"/>
+        <association property="book" javaType="Book">
+            <id property="bid" column="bid"></id>
+            <result property="bname" column="bname"></result>
+            <result property="currPrice" column="currPrice"></result>
+            <result property="image_b" column="image_b"></result>
+        </association>
+        <association property="order" javaType="Order">
+            <id property="oid" column="oid"></id>
+        </association>
+    </resultMap>
+    <select id="getmyOrderCount" parameterType="String" resultType="int">
+   select count(*) from t_order where uid=#{uid}
+    </select>
+    <select id="myOrder" resultMap="OrderList">
+        select * from t_order where uid=#{uid} limit #{pc},#{ps}
+    </select>
+    <select id="selecOrderItembyoid" resultMap="OrderItemList">
+        select * from t_orderitem where oid=#{oid}
+    </select>
+
+</mapper>

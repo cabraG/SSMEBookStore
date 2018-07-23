@@ -58,10 +58,10 @@
 <c:forEach items="${cartItemList }" var="cartItem">
 	<tr align="center">
 		<td align="right">
-			<a class="linkImage" href="<c:url value='/jsps/book/desc.jsp'/>"><img border="0" width="54" align="top" src="<c:url value='/${cartItem.book.image_b }'/>"/></a>
+			<a class="linkImage" href="<c:url value='//bookLoader?bid=${cartItem.book.bid}'/>"><img border="0" width="54" align="top" src="<c:url value='/${cartItem.book.image_b }'/>"/></a>
 		</td>
 		<td align="left">
-			<a href="<c:url value='/jsps/book/desc.jsp'/>"><span>${cartItem.book.bname }</span></a>
+			<a href="<c:url value='/bookLoader?bid=${cartItem.book.bid}'/>"><span>${cartItem.book.bname }</span></a>
 		</td>
 		<td>&yen;${cartItem.book.currPrice }</td>
 		<td>${cartItem.quantity }</td>
@@ -90,7 +90,7 @@
 	</tr>
 	<tr>
 		<td colspan="6">
-			<input id="addr" type="text" name="address" value="北京市 昌平区 西三旗 金燕龙办公楼1层 传智播客 张三爷"/>
+			<input id="addr" type="text" name="address" value="武汉东湖学院"/>
 		</td>
 	</tr>
 	<tr>

@@ -21,6 +21,8 @@
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/css/cart/list.css'/>">
 <script type="text/javascript">
+    var pathName = window.document.location.pathname;
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 $(function() {
 	showTotal();//计算总计
 	
@@ -90,6 +92,7 @@ $(function() {
 		var id = $(this).attr("id").substring(0, 32);
 		// 获取输入框中的数量
 		var quantity = $("#" + id + "Quantity").val();
+		console.log(quantity);
 		sendUpdateQuantity(id, Number(quantity)+1);
 	});
 });
@@ -97,10 +100,10 @@ $(function() {
 // 请求服务器，修改数量。
 function sendUpdateQuantity(id, quantity) {
 	$.ajax({
-		async:false,
+		async:true,
 		cache:false,
-		url:"/goods/CartItemServlet",
-		data:{method:"updateQuantity",cartItemId:id,quantity:quantity},
+		url:projectName+"/updateQuantity",
+		data:{mcartItemId:id,quantity:quantity},
 		type:"POST",
 		dataType:"json",
 		success:function(result) {
@@ -223,17 +226,17 @@ function jiesuan() {
 			<input value="${cartItem.cartItemId }" type="checkbox" name="checkboxBtn" checked="checked"/>
 		</td>
 		<td align="left" width="70px">
-			<a class="linkImage" href="<c:url value='/jsps/book/desc.jsp'/>"><img border="0" width="54" align="top" src="<c:url value='/${cartItem.book.image_b }'/>"/></a>
+			<a class="linkImage" href="<c:url value='/bookLoader?bid=${cartItem.book.bid}'/>"><img border="0" width="54" align="top" src="<c:url value='/${cartItem.book.image_b }'/>"/></a>
 		</td>
 		<td align="left" width="400px">
-		    <a href="<c:url value='/jsps/book/desc.jsp'/>"><span>${cartItem.book.bname }</span></a>
+		    <a href="<c:url value='/bookLoader?bid=${cartItem.book.bid}'/>"><span>${cartItem.book.bname }</span></a>
 		</td>
 		<td><span>&yen;<span class="currPrice">${cartItem.book.currPrice }</span></span></td>
 		<td>
-			<a class="jian" id="${cartItem.cartItemId }Jian"></a><input class="quantity" readonly="readonly" id="${cartItem.cartItemId }Quantity" type="text" value="${cartItem.quantity }"/><a class="jia" id="${cartItem.cartItemId }Jia"></a>
+			<a class="jian" id="${cartItem.cartItemId}Jian"></a><input class="quantity" readonly="readonly" id="${cartItem.cartItemId}Quantity" type="text" value="${cartItem.quantity }"/><a class="jia" id="${cartItem.cartItemId }Jia"></a>
 		</td>
 		<td width="100px">
-			<span class="price_n">&yen;<span class="subTotal" id="${cartItem.cartItemId }Subtotal">${cartItem.subtotal }</span></span>
+			<span class="price_n">&yen;<span class="subTotal" id="${cartItem.cartItemId}Subtotal">${cartItem.book.currPrice*cartItem.quantity}</span></span>
 		</td>
 		<td>
 			<a href="<c:url value='/CartItemServlet?method=batchDelete&cartItemIds=${cartItem.cartItemId }'/>">删除</a>
@@ -273,10 +276,9 @@ function jiesuan() {
 		</td>
 	</tr>
 </table>
-	<form id="jieSuanForm" action="<c:url value='/CartItemServlet'/>" method="post">
+	<form id="jieSuanForm" action="<c:url value='/loadCartItems'/>" method="post">
 		<input type="hidden" name="cartItemIds" id="cartItemIds"/>
 		<input type="hidden" name="total" id="hiddenTotal"/>
-		<input type="hidden" name="method" value="loadCartItems"/>
 	</form>
 
 	</c:otherwise>

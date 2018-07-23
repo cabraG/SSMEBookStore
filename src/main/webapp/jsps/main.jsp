@@ -37,7 +37,11 @@
 	</tr>
 	<tr>
 		<td style="border-top-width: 0px;">
-			<iframe frameborder="0" src="<c:url value='/jsps/body.jsp'/>" name="body"></iframe>
+			<iframe id =nochange frameborder="0" src="
+
+<c:url  value='/jsps/body.jsp'/>
+
+" name="body"></iframe>
 		</td>
 	</tr>
 

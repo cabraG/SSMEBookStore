@@ -20,7 +20,7 @@ private BookService bookService;
     @Autowired
     HttpServletRequest request;
 
-
+//分页映射url用方法
     private String getUrl(HttpServletRequest req) {
         String url = req.getRequestURI() + "?" + req.getQueryString();
         /*
@@ -32,7 +32,7 @@ private BookService bookService;
         }
         return url;
     }
-
+//分类获得图书
     @RequestMapping(value = "/findbookbycid")
     public String findbookbycid(@RequestParam(name = "cid")String cid,@RequestParam(name = "pc",required=false)String pc,Map<String, Object> map){
 
@@ -46,6 +46,7 @@ private BookService bookService;
         return "jsps/book/list";
 
     }
+    //id获得图书
     @RequestMapping(value = "/bookLoader")
     public String bookLoader(@RequestParam(name="bid") String bid,Map<String, Object> map){
 
@@ -53,7 +54,7 @@ private BookService bookService;
         return "jsps/book/desc";
 
     }
-
+//三条件动态查询
     @RequestMapping(value = "findbythree")
     public String findbythree(@RequestParam(name = "pc",required=false)String pc,Book book,Map<String, Object> map){
         PageBean<Book> pb=bookService.findbythree(book,pc);

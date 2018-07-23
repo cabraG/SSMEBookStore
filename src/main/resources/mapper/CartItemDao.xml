@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为接口方法提供sql语句配置 -->
+<mapper namespace="dao.CartItemDao">
+    <resultMap id="cartitemlist" type="CartItem">
+        <id property="cartItemId" column="cartItemId"></id>
+        <result property="quantity" column="quantity"/>
+        <association property="book" javaType="Book">
+            <id property="bid" column="bid"></id>
+            <result property="bname" column="bname"></result>
+            <result property="currPrice" column="currPrice"></result>
+            <result property="image_b" column="image_b"></result>
+        </association>
+        <association property="user" javaType="User">
+          <id property="uid" column="uid"></id>
+        </association>
+    </resultMap>
+    <select id="mycart" parameterType="String" resultMap="cartitemlist">
+        select * from t_cartitem c, t_book b,t_user u where c.uid=u.uid and c.bid=b.bid and c.uid =#{uid}
+
+    </select>
+
+    <insert id="careitemInsert">
+        insert into t_cartitem(cartItemId,quantity,bid,uid) value (#{cartItem.cartItemId},#{cartItem.quantity},#{bid},#{cartItem.user.uid})
+    </insert>
+    <select id="loadCartItems"  resultMap="cartitemlist">
+        select * from t_cartitem c ,t_book b
+        <where>
+            b.bid=c.bid
+            and c.cartItemId in
+            <foreach item="cartItemId" collection="cartItemIds" separator="," open="(" close=")">
+                #{cartItemId}
+            </foreach>
+        </where>
+    </select>
+
+    <update id="updateCart">
+        update t_cartitem set quantity=quantity+#{quantity} where bid=#{bid}
+    </update>
+
+    <select id="selectCartbybid" resultType="int">
+        select count(*) from t_cartitem where bid=#{bid}
+
+    </select>
+    <update id="updateCartbytextbox">
+        update t_cartitem set quantity=#{quantity} where cartItemId=#{cartItemId}
+    </update>
+
+    <select id="updateQuantitySelect" parameterType="String" resultMap="cartitemlist">
+ select * from t_cartitem c ,t_book b where  b.bid=c.bid
+            and c.cartItemId =#{cartItemId}
+    </select>
+</mapper>
