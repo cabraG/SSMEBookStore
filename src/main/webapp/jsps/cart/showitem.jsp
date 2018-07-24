@@ -39,7 +39,7 @@
   <c:choose>
   	<c:when test="${empty cartItemList }">嘻嘻~</c:when>
   	<c:otherwise>
-<form id="form1" action="<c:url value='/OrderServlet'/>" method="post">
+<form id="form1" action="<c:url value='/OrderInit'/>" method="post">
 	<input type="hidden" name="cartItemIds" value="${cartItemIds }"/>
 	<input type="hidden" name="method" value="createOrder"/>
 <table width="95%" align="center" cellpadding="0" cellspacing="0">
@@ -90,7 +90,7 @@
 	</tr>
 	<tr>
 		<td colspan="6">
-			<input id="addr" type="text" name="address" value="武汉东湖学院"/>
+			<input id="addr" type="text" name="songaddress" value="武汉东湖学院"/>
 		</td>
 	</tr>
 	<tr>

@@ -33,4 +33,23 @@ public class OrderService {
 
         return orderPageBean;
     }
+
+    public void createOrder(Order order) {
+
+         orderDao.createOrder(order);
+         orderDao.setOrderItem(order.getOrderItemList());
+    }
+
+    public Order loadOrder(String oid) {
+        return orderDao.loadOrder(oid);
+    }
+
+    public void paymentPre(String oid) {
+        orderDao.paymentPre(oid);
+
+    }
+
+    public void updateStatus(String oid, int i) {
+        orderDao.updateStatus(oid,i);
+    }
 }

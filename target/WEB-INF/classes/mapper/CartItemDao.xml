@@ -51,4 +51,14 @@
  select * from t_cartitem c ,t_book b where  b.bid=c.bid
             and c.cartItemId =#{cartItemId}
     </select>
+
+    <delete id="batchDelete" >
+        delete from t_cartitem
+        <where>
+            cartItemId in
+            <foreach item="cartItemId" collection="cartItemIds" separator="," open="(" close=")">
+                #{cartItemId}
+            </foreach>
+        </where>
+    </delete>
 </mapper>

@@ -34,10 +34,32 @@
    select count(*) from t_order where uid=#{uid}
     </select>
     <select id="myOrder" resultMap="OrderList">
-        select * from t_order where uid=#{uid} limit #{pc},#{ps}
+        select * from t_order where uid=#{uid} order by ordertime desc limit #{pc},#{ps}
     </select>
     <select id="selecOrderItembyoid" resultMap="OrderItemList">
         select * from t_orderitem where oid=#{oid}
     </select>
 
+    <insert id="createOrder" parameterType="Order">
+insert into t_order (oid,ordertime,total,status,address,uid) values (#{order.oid},#{order.ordertime},#{order.total},#{order.status},#{order.address},#{order.owner.uid})
+    </insert>
+    <insert id="setOrderItem">
+
+        insert into t_orderitem (orderItemId,subtotal,quantity,bid,bname,currPrice,image_b,oid) values
+        <foreach item="orderItem" collection="orderItemList"  index="index" separator=",">
+            (#{orderItem.orderItemId},#{orderItem.subtotal},#{orderItem.quantity},#{orderItem.book.bid},#{orderItem.book.bname},#{orderItem.book.currPrice},#{orderItem.book.image_b},#{orderItem.order.oid})
+        </foreach>
+    </insert>
+
+    <select id="loadOrder" parameterType="String" resultMap="OrderList">
+        select * from t_order where oid=#{oid}
+    </select>
+
+    <update id="paymentPre">
+        update t_order set status=2 where oid=#{oid}
+    </update>
+
+    <update id="updateStatus">
+        update t_order set status=#{status} where oid=#{oid}
+    </update>
 </mapper>

@@ -46,4 +46,10 @@ public class CartItemService {
            return cartItemDao.updateQuantitySelect(cartItemId);
 
     }
+
+    public void batchDelete(String cartItemIds) {
+        String[] cartItemIdArray = cartItemIds.split(",");
+        cartItemDao.batchDelete(Arrays.asList(cartItemIdArray));
+
+    }
 }

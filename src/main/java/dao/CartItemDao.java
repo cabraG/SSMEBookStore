@@ -19,4 +19,9 @@ public interface CartItemDao {
     void updateCartbytextbox(@Param("cartItemId")String cartItemId, @Param("quantity")int quantity);
 
     CartItem updateQuantitySelect(@Param("cartItemId")String cartItemId);
+
+    void batchDelete(@Param("cartItemIds")List<String> cartItemIds);
+
+
+
 }

@@ -26,6 +26,7 @@ public class CartItemController {
     @Autowired
     private  HttpServletRequest request;
 
+//购物车添加
     @RequestMapping(value = "/cartiteminit")
     public String cartiteminit(CartItem cartItem,@RequestParam(name = "bid")String bid){
         User user=(User)request.getSession().getAttribute("sessionUser");
@@ -36,6 +37,8 @@ public class CartItemController {
 
         return "forward:/mycart";
     }
+
+    //我的购物车
 @RequestMapping(value = "/mycart")
  public String mycart(Map<String, Object> map){
     User user= (User)request.getSession().getAttribute("sessionUser");
@@ -45,6 +48,7 @@ public class CartItemController {
         return "jsps/cart/list";
  }
 
+ //订单准备
  @RequestMapping(value = "loadCartItems")
     public String loadCartItems(@RequestParam(name = "cartItemIds")String cartItemIds,@RequestParam(name = "total")String total,Map<String, Object> map){
         map.put("total",total);
@@ -55,6 +59,7 @@ public class CartItemController {
         return "jsps/cart/showitem";
  }
 
+//购物车页面内修改购买数量
     @RequestMapping(value = "updateQuantity", method = RequestMethod.POST)
     @ResponseBody
     public String updateQuantity(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -71,5 +76,13 @@ public class CartItemController {
         response.getWriter().print(sb);
         return null;
     }
+
+    //删除购物车项
+@RequestMapping(value = "batchDelete")
+    public String batchDelete(@RequestParam(name = "cartItemIds")String cartItemIds){
+        cartItemService.batchDelete(cartItemIds);
+
+        return "forward:/mycart";
+}
 
 }

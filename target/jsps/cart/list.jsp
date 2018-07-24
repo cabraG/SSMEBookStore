@@ -79,7 +79,7 @@ $(function() {
 		// 判断当前数量是否为1，如果为1,那就不是修改数量了，而是要删除了。
 		if(quantity == 1) {
 			if(confirm("您是否真要删除该条目？")) {
-				location = "/goods/CartItemServlet?method=batchDelete&cartItemIds=" + id;
+				location = projectName+"/batchDelete?cartItemIds=" + id;
 			}
 		} else {
 			sendUpdateQuantity(id, quantity-1);
@@ -169,7 +169,7 @@ function batchDelete() {
 	$(":checkbox[name=checkboxBtn][checked=true]").each(function() {
 		cartItemIdArray.push($(this).val());//把复选框的值添加到数组中
 	});
-	location = "/goods/CartItemServlet?method=batchDelete&cartItemIds=" + cartItemIdArray;
+	location = projectName+"/batchDelete?cartItemIds=" + cartItemIdArray;
 }
 
 /*
@@ -239,7 +239,7 @@ function jiesuan() {
 			<span class="price_n">&yen;<span class="subTotal" id="${cartItem.cartItemId}Subtotal">${cartItem.book.currPrice*cartItem.quantity}</span></span>
 		</td>
 		<td>
-			<a href="<c:url value='/CartItemServlet?method=batchDelete&cartItemIds=${cartItem.cartItemId }'/>">删除</a>
+			<a href="<c:url value='batchDelete?cartItemIds=${cartItem.cartItemId }'/>">删除</a>
 		</td>
 	</tr>
 </c:forEach>
