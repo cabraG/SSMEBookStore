@@ -1,7 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<c:set var="cp" value="<%=basePath%>" />
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -24,7 +28,7 @@
  * 1. 对象名必须与第一个参数相同！
    2. 第二个参数是显示在菜单上的大标题
  */
-var bar = new Q6MenuBar("bar", "传智播客网上书城");
+var bar = new Q6MenuBar("bar", "网上书城");
 $(function() {
 	bar.colorStyle = 2;//指定配色样式，一共0,1,2,3,4
 	bar.config.imgDir = "<c:url value='/menu/img/'/>";//小工具所需图片的路径
@@ -38,7 +42,7 @@ $(function() {
 	*/
 <c:forEach items="${parents}" var="parent">
   <c:forEach items="${parent.children}" var="child">
-	bar.add("${parent.cname}", "${child.cname}", "/goods/admin/AdminBookServlet?method=findByCategory&cid=${child.cid}", "body");
+	bar.add("${parent.cname}", "${child.cname}", "${cp}admin/book/adminfindbookbycid?cid=${child.cid}", "body");
   </c:forEach>
 </c:forEach>
 	

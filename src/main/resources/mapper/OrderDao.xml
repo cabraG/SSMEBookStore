@@ -62,4 +62,11 @@ insert into t_order (oid,ordertime,total,status,address,uid) values (#{order.oid
     <update id="updateStatus">
         update t_order set status=#{status} where oid=#{oid}
     </update>
+
+    <select id="findallcount" resultType="int">
+        select count(*) from t_order
+    </select>
+    <select id="findall" resultMap="OrderList">
+        select * from t_order order by ordertime desc limit #{pc},#{ps}
+    </select>
 </mapper>

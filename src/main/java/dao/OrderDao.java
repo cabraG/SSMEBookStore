@@ -20,5 +20,9 @@ public interface OrderDao {
     void paymentPre(@Param("oid")String oid);
 
     void updateStatus(@Param("oid")String oid, @Param("status")int status);
+
+    int findallcount();
+
+    List<Order> findall(@Param("pc")int pc, @Param("ps")int ps);
 }
 

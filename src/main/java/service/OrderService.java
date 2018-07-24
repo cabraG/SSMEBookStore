@@ -52,4 +52,23 @@ public class OrderService {
     public void updateStatus(String oid, int i) {
         orderDao.updateStatus(oid,i);
     }
+
+    public PageBean<Order> findall(String pc) {
+
+        int thispc =0;
+        if(pc==null){
+            thispc =1;
+        }
+        else{
+            thispc=Integer.valueOf(pc).intValue();
+        }
+        PageBean<Order> orderPageBean=new PageBean<Order>();
+        orderPageBean.setPc(thispc);
+        orderPageBean.setPs(8);
+        orderPageBean.setTr(orderDao.findallcount());
+        orderPageBean.setBeanList(orderDao.findall((thispc-1)*8,8));
+
+        return orderPageBean;
+
+    }
 }
