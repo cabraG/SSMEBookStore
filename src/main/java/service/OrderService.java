@@ -71,4 +71,23 @@ public class OrderService {
         return orderPageBean;
 
     }
+
+    public PageBean<Order> findByStatus(String status,String pc) {
+
+
+        int thispc =0;
+        if(pc==null){
+            thispc =1;
+        }
+        else{
+            thispc=Integer.valueOf(pc).intValue();
+        }
+        PageBean<Order> orderPageBean=new PageBean<Order>();
+        orderPageBean.setPc(thispc);
+        orderPageBean.setPs(8);
+        orderPageBean.setTr(orderDao.findallcount());
+        orderPageBean.setBeanList(orderDao.findByStatus(status,(thispc-1)*8,8));
+
+        return orderPageBean;
+    }
 }

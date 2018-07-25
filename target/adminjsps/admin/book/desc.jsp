@@ -58,8 +58,8 @@ function loadChildren() {
 	$.ajax({
 		async:true,
 		cache:false,
-		url:"/goods/admin/AdminBookServlet",
-		data:{method:"ajaxFindChildren", pid:pid},
+		url:"/SSMEBookStore/admin/category/AjaxChangePcategory",
+		data:{pid:pid},
 		type:"POST",
 		dataType:"json",
 		success:function(arr) {
@@ -79,14 +79,14 @@ function loadChildren() {
  * 点击编辑按钮时执行本函数
  */
 function editForm() {
-	$("#method").val("edit");
+    document.form1.action="/SSMEBookStore/admin/book/editBook";
 	$("#form").submit();
 }
 /*
  * 点击删除按钮时执行本函数
  */
  function deleteForm() {
-	$("#method").val("delete");
+     document.form1.action="/SSMEBookStore/admin/book/deleteBook";
 	$("#form").submit();	
 }
 
@@ -115,7 +115,7 @@ function editForm() {
 			</tr>
 			<tr>
 				<td colspan="3">
-					出版社：${book.press }</a>
+					<a>出版社：${book.press }</a>
 				</td>
 			</tr>
 			<tr>
@@ -138,8 +138,7 @@ function editForm() {
   
   <div id='formDiv'>
    <div class="sm">&nbsp;</div>
-   <form action="<c:url value='/admin/AdminBookServlet'/>" method="post" id="form">
-    <input type="hidden" name="method" id="method"/>
+   <form action="" method="post" id="form" name="form1">
    	<input type="hidden" name="bid" value="${book.bid }"/>
     <img align="top" src="<c:url value='/${book.image_w }'/>" class="tp"/>
     <div style="float:left;">
@@ -180,7 +179,7 @@ function editForm() {
 					一级分类：<select name="pid" id="pid" onchange="loadChildren()">
 						<option value="">==请选择1级分类==</option>
 <c:forEach items="${parents }" var="parent">
-  <option value="${parent.cid }" <c:if test="${book.category.parent.cid eq parent.cid }">selected="selected"</c:if>>${parent.cname }</option>
+  <option value="${parent.cid }" <c:if test="${book.category.pid eq parent.cid }">selected="selected"</c:if>>${parent.cname }</option>
 </c:forEach>
 					</select>
 				</td>

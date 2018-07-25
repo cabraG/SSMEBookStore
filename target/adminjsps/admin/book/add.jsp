@@ -25,18 +25,21 @@
 $(function () {
 	$("#publishtime").datepick({dateFormat:"yy-mm-dd"});
 	$("#printtime").datepick({dateFormat:"yy-mm-dd"});
-	
-	$("#btn").addClass("btn1");
-	$("#btn").hover(
-		function() {
-			$("#btn").removeClass("btn1");
-			$("#btn").addClass("btn2");
-		},
-		function() {
-			$("#btn").removeClass("btn2");
-			$("#btn").addClass("btn1");
-		}
-	);
+
+    $("#btn").addClass("btn1");
+    $("#btn").hover(
+        function() {
+            $("#btn").removeClass("btn1");
+            $("#btn").addClass("btn2");
+        },
+        function() {
+            $("#btn").removeClass("btn2");
+            $("#btn").addClass("btn1");
+        }
+
+
+    );
+
 	
 	$("#btn").click(function() {
 		var bname = $("#bname").val();
@@ -78,8 +81,8 @@ function loadChildren() {
 	$.ajax({
 		async:true,
 		cache:false,
-		url:"/goods/admin/AdminBookServlet",
-		data:{method:"ajaxFindChildren", pid:pid},
+		url:"/SSMEBookStore/admin/category/AjaxChangePcategory",
+		data:{pid:pid},
 		type:"POST",
 		dataType:"json",
 		success:function(arr) {
@@ -101,12 +104,12 @@ function loadChildren() {
   <body>
   <div>
    <p style="font-weight: 900; color: red;">${msg }</p>
-   <form action="<c:url value='/admin/AdminAddBookServlet'/>" enctype="multipart/form-data" method="post" id="form">
+   <form action="<c:url value='/admin/book/insertBook'/>" enctype="multipart/form-data" method="post" id="form">
     <div>
 	    <ul>
 	    	<li>书名：　<input id="bname" type="text" name="bname" value="Spring实战(第3版)（In Action系列中最畅销的Spring图书，近十万读者学习Spring的共同选择）" style="width:500px;"/></li>
-	    	<li>大图：　<input id="image_w" type="file" name="image_w"/></li>
-	    	<li>小图：　<input id="image_b" type="file" name="image_b"/></li>
+	    	<li>大图：　<input id="image_w" type="file" name="files"/></li>
+	    	<li>小图：　<input id="image_b" type="file" name="files"/></li>
 	    	<li>当前价：<input id="currPrice" type="text" name="currPrice" value="40.7" style="width:50px;"/></li>
 	    	<li>定价：　<input id="price" type="text" name="price" value="59.0" style="width:50px;"/>
 	    	折扣：<input id="discount" type="text" name="discount" value="6.9" style="width:30px;"/>折</li>
@@ -141,7 +144,7 @@ function loadChildren() {
 					一级分类：<select name="pid" id="pid" onchange="loadChildren()">
 						<option value="">====请选择1级分类====</option>
 <c:forEach items="${parents }" var="parent">
-			    		<option value="${parent.cid }">${parent.cname }</option>
+			    		<option value="${parent.cid}">${parent.cname}</option>
 </c:forEach>
 
 					</select>

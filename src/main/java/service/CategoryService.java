@@ -27,4 +27,25 @@ public class CategoryService {
 
           return categoryDao.findCategoriesByParentId(pid);
      }
+
+    public void insert(Category category) {
+
+         categoryDao.insert(category);
+    }
+
+    public List<Category> findallparents() {
+         return categoryDao.findallparents();
+    }
+
+    public Category findbycid(String cid) {
+        return categoryDao.findbycid(cid);
+    }
+
+    public void update(Category category) {
+        categoryDao.update(category);
+    }
+
+    public List<Category> findbypid(String pid) {
+         return categoryDao.findbypid(pid);
+    }
 }

@@ -23,14 +23,17 @@
         <result property="paper" column="paper"/>
         <result property="image_w" column="image_w"/>
         <result property="image_b" column="image_b"/>
-        <association property="category" javaType="Category"/>
+        <association property="category" javaType="Category">
+            <id property="cid" column="cid"></id>
+            <result property="pid" column="pid"></result>
+        </association>
     </resultMap>
     
     <select id="findbookbycid"  resultMap="BookResultMap">
         select * from t_book b,t_category c where b.cid=c.cid and b.cid =#{cid} limit #{pc},#{ps}
     </select>
-<select id="bookLoader" resultType="Book" parameterType="String">
-    select * from t_book where bid=#{bid}
+<select id="bookLoader" resultMap="BookResultMap" parameterType="String">
+    select * from t_book b,t_category c where  b.cid=c.cid and bid=#{bid}
 </select>
 
     <select id="findbythreecount" resultType="int" parameterType="User">
@@ -62,4 +65,22 @@
 
         LIMIT #{pc},#{ps};
     </select>
+    <update id="update">
+        update t_book set bname=#{book.bname},author=#{book.author},price=#{book.price},currPrice=#{book.currPrice},discount=#{book.discount},press=#{book.press},
+        publishtime=#{book.publishtime},edition=#{book.edition},
+        pageNum=#{book.pageNum},wordNum=#{book.wordNum},printtime=#{book.printtime},booksize=#{book.booksize},paper=#{book.paper},cid=#{book.category.cid}
+        where bid=#{book.bid}
+    </update>
+
+
+
+    <insert id="insertBook">
+        INSERT INTO `t_book`(`bid`, `bname`, `author`, `price`, `currPrice`, `discount`, `press`, `publishtime`,
+        `edition`, `pageNum`, `wordNum`, `printtime`, `booksize`, `paper`, `cid`, `image_w`, `image_b`)
+        VALUES
+        (#{book.bid},#{book.bname},#{book.author},#{book.price},#{book.currPrice},#{book.discount},
+        #{book.press},#{book.publishtime},#{book.edition},#{book.pageNum},#{book.wordNum},
+        #{book.printtime},#{book.booksize},#{book.paper},#{book.category.cid},#{book.image_w},#{book.image_b}
+        )
+    </insert>
 </mapper>

@@ -24,23 +24,45 @@
 
 </select>
 <select id="findallCategory" resultType="Category">
-   select * from t_category
+   select * from t_category order by orderBy
 </select>
 
-   <!-- <select id="selectUser" resultType="User">
-        SELECT * FROM t_sys_user
+<insert id="insert">
+    insert into t_category
+    <choose>
+        <when test="category.pid!=null">
+            (`cid`, `cname`,`pid`, `desc`) values (#{category.cid},#{category.cname},#{category.pid},#{category.desc})
+        </when>
+        <otherwise>
+            (`cid`, `cname`, `desc`) values (#{category.cid},#{category.cname},#{category.desc})
+        </otherwise>
+    </choose>
+</insert>
+
+
+    <select id="findallparents" resultType="Category">
+        select * from t_category where  pid is null
     </select>
 
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userid">
-    insert into t_sys_user (usercode,password,deptid,birthday,cellphone,username) values (#{usercode},#{password},#{deptid},#{birthday},#{cellphone},#{username})
-</insert>
-    <update id="updateUser">
-         update t_sys_user set usercode = #{usercode}, username = #{username}, deptid = #{deptid}, birthday = #{birthday},cellphone=#{cellphone} where userid = #{userid}
-    </update>
-    <select id="showUpdateUser" resultType="User" parameterType="int">
-         SELECT * FROM t_sys_user where userid= #{userid}
+    <select id="findbycid" resultType="Category" parameterType="String">
+        select * from t_category where cid=#{cid}
     </select>
-    <delete id="deleteUser" parameterType="int">
-        delete from t_sys_user where userid = #{userid}
-    </delete>-->
+
+
+    <select id="findbypid" resultType="Category" parameterType="String">
+        select * from t_category where pid=#{pid}
+    </select>
+
+    <update id="update">
+        update t_category set
+        <choose>
+            <when test="category.pid!=null">
+                `cname`=#{category.cname},`pid`=#{category.pid},`desc`=#{category.desc}
+            </when>
+            <otherwise>
+                `cname`=#{category.cname},`desc`=#{category.desc}
+            </otherwise>
+        </choose>
+        where `cid` =#{category.cid}
+    </update>
 </mapper>

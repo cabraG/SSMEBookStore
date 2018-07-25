@@ -53,4 +53,12 @@ private BookDao bookDao;
         return bookPageBean;
 
     }
+
+    public void update(Book book) {
+        bookDao.update(book);
+    }
+
+    public void insertBook(Book book) {
+        bookDao.insertBook(book);
+    }
 }

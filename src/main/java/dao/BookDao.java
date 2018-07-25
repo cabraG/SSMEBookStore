@@ -15,4 +15,9 @@ public interface BookDao {
     List<Book> findbythree(@Param("book")Book book, @Param("pc")int pc, @Param("ps")int ps);
 
     int findbythreecount(@Param("book")Book book);
+
+    void update(@Param("book")Book book);
+
+
+    void insertBook(@Param("book")Book book);
 }

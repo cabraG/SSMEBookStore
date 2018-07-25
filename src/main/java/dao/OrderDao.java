@@ -24,5 +24,7 @@ public interface OrderDao {
     int findallcount();
 
     List<Order> findall(@Param("pc")int pc, @Param("ps")int ps);
+
+    List<Order> findByStatus(@Param("status")String status,@Param("pc")int pc, @Param("ps")int ps);
 }
 
