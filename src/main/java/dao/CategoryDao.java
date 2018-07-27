@@ -20,4 +20,8 @@ public interface CategoryDao {
     void update(@Param("category")Category category);
 
     List<Category> findbypid(@Param("pid") String pid);
+
+    void deleteCategoryparent(@Param("category") Category category);
+
+    void deleteCategoryChild(@Param("childrens") List<Category> childrens);
 }

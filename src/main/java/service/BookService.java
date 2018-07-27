@@ -23,7 +23,7 @@ private BookDao bookDao;
             thispc=Integer.valueOf(pc).intValue();
         }
         PageBean<Book> bookPageBean =new PageBean<Book>();
-        bookPageBean.setTr(bookDao.findbookcount());
+        bookPageBean.setTr(bookDao.findbookcount(cid));
         bookPageBean.setPs(8);
         bookPageBean.setPc(thispc);
         bookPageBean.setBeanList(bookDao.findbookbycid(cid,(thispc-1)*8,8));
@@ -60,5 +60,9 @@ private BookDao bookDao;
 
     public void insertBook(Book book) {
         bookDao.insertBook(book);
+    }
+
+    public void deleteBook(String bid) {
+        bookDao.deleteBook(bid);
     }
 }

@@ -79,7 +79,7 @@ $(function() {
 		// 判断当前数量是否为1，如果为1,那就不是修改数量了，而是要删除了。
 		if(quantity == 1) {
 			if(confirm("您是否真要删除该条目？")) {
-				location = projectName+"/batchDelete?cartItemIds=" + id;
+				location = projectName+"/cart/batchDelete?cartItemIds=" + id;
 			}
 		} else {
 			sendUpdateQuantity(id, quantity-1);
@@ -102,7 +102,7 @@ function sendUpdateQuantity(id, quantity) {
 	$.ajax({
 		async:true,
 		cache:false,
-		url:projectName+"/updateQuantity",
+		url:projectName+"/cart/updateQuantity",
 		data:{mcartItemId:id,quantity:quantity},
 		type:"POST",
 		dataType:"json",
@@ -239,7 +239,7 @@ function jiesuan() {
 			<span class="price_n">&yen;<span class="subTotal" id="${cartItem.cartItemId}Subtotal">${cartItem.book.currPrice*cartItem.quantity}</span></span>
 		</td>
 		<td>
-			<a href="<c:url value='batchDelete?cartItemIds=${cartItem.cartItemId }'/>">删除</a>
+			<a href="<c:url value='/cart/batchDelete?cartItemIds=${cartItem.cartItemId }'/>">删除</a>
 		</td>
 	</tr>
 </c:forEach>
@@ -276,7 +276,7 @@ function jiesuan() {
 		</td>
 	</tr>
 </table>
-	<form id="jieSuanForm" action="<c:url value='/loadCartItems'/>" method="post">
+	<form id="jieSuanForm" action="<c:url value='/cart/loadCartItems'/>" method="post">
 		<input type="hidden" name="cartItemIds" id="cartItemIds"/>
 		<input type="hidden" name="total" id="hiddenTotal"/>
 	</form>

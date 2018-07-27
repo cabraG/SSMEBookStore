@@ -58,7 +58,7 @@
    	    <span class="spanBtnSelect">${i }</span>
    	  </c:when>
    	  <c:otherwise>
-   	    <a href="${pb.url }&pc=${i}" class="aBtn">${i }</a>
+   	    <a href="${pb.url }&pc=${i}" class="aBtn">${i}</a>
    	  </c:otherwise>
    </c:choose>
            
@@ -88,9 +88,9 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
     <%-- 共N页 到M页 --%>
-    <span>共${pb.tp }页</span>
+    <span>共${pb.tp}页</span>
     <span>到</span>
-    <input type="text" class="inputPageCode" id="pageCode" value="${pb.pc }"/>
+    <input type="text" class="inputPageCode" id="pageCode" value="${pb.pc}"/>
     <span>页</span>
     <a href="javascript:_go();" class="aSubmit">确定</a>
   </div>

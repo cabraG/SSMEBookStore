@@ -1,14 +1,14 @@
 package controller;
 
 import Utils.CommonUtils;
-import Utils.PageBean;
-import model.CartItem;
+
 import model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import service.BookService;
 import service.CategoryService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +26,10 @@ public class AdminCategoryController {
 
     @Autowired
     HttpServletRequest request;
+
+
+    @Autowired
+    BookService bookService;
 
     @RequestMapping()
     public String findall(Map<String, Object> map){
@@ -121,6 +125,30 @@ else {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+
+    @RequestMapping(value = "/deleteCategory")
+    public String deleteCategory(Category category,Map<String, Object> map) {
+
+        Category localcategory = categoryService.findbycid(category.getCid());
+        if (bookService.findbookbycid(category.getCid(),"1").getBeanList()!=null) {
+            map.put("code", "success");
+            map.put("msg", "请删除该分类下的图书再对分类进行删除");
+            return "adminjsps/msg";
+
+
+        } else {
+            categoryService.deleteCategory(localcategory);
+            if (categoryService.findbycid(category.getCid()) == null) {
+                map.put("code", "error");
+                map.put("msg", "刪除分类成功！");
+                return "adminjsps/msg";
+            }
+            map.put("code", "error");
+            map.put("msg", "刪除分类失败，请检查其关系！");
+            return "adminjsps/msg";
+        }
     }
 
 

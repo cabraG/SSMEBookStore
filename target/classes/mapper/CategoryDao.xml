@@ -65,4 +65,18 @@
         </choose>
         where `cid` =#{category.cid}
     </update>
+
+
+    <delete id="deleteCategoryChild">
+        delete from t_category where cid in
+        <foreach collection="childrens" item="child" open="("
+                                                     separator="," close=")">
+        #{child.cid}
+    </foreach>
+
+    </delete>
+
+    <delete id="deleteCategoryparent">
+        delete from t_category where cid=#{category.cid}
+    </delete>
 </mapper>

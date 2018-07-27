@@ -48,4 +48,17 @@ public class CategoryService {
     public List<Category> findbypid(String pid) {
          return categoryDao.findbypid(pid);
     }
+
+    public void deleteCategory(Category category) {
+
+         if(category.getPid()==null){
+             List<Category> childrens= categoryDao.findbypid(category.getCid());
+             categoryDao.deleteCategoryChild(childrens);
+             categoryDao.deleteCategoryparent(category);
+         }
+        categoryDao.deleteCategoryparent(category);
+
+
+
+    }
 }

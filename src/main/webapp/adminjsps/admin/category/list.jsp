@@ -37,7 +37,7 @@
     		<td width="200px;">
     		  <a href="<c:url value='/admin/category/addChildPre?pid=${parent.cid }'/>">添加二级分类</a>
     		  <a href="<c:url value='/admin/category/editPre?cid=${parent.cid }'/>">修改</a>
-    		  <a onclick="return confirm('您是否真要删除该一级分类？')" href="<c:url value='/admin/AdminCategoryServlet?method=deleteParent&cid=${parent.cid }'/>">删除</a>
+    		  <a onclick="return confirm('您是否真要删除该一级分类？')" href="<c:url value='/admin/category/deleteCategory?cid=${parent.cid }'/>">删除</a>
     		</td>
     	</tr>
    <c:forEach items="${parent.children }" var="child">
@@ -46,7 +46,7 @@
     		<td>${child.desc }</td>
     		<td width="200px;" align="right">
     		  <a href="<c:url value='/admin/category/editPre?cid=${child.cid }'/>">修改</a>
-    		  <a onclick="return confirm('您是否真要删除该二级分类？')" href="<c:url value='/admin/AdminCategoryServlet?method=deleteChild&cid=${child.cid }'/>">删除</a>
+    		  <a onclick="return confirm('您是否真要删除该二级分类？')" href="<c:url value='/admin/category/deleteCategory?cid=${child.cid }'/>">删除</a>
     		</td>
     	</tr>
    </c:forEach>

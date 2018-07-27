@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface BookDao {
-    int findbookcount();
+    int findbookcount(@Param("cid")String cid);
     List<Book> findbookbycid(@Param("cid")String cid,@Param("pc")int pc,@Param("ps")int ps);
 
     Book bookLoader(String bid);
@@ -20,4 +20,6 @@ public interface BookDao {
 
 
     void insertBook(@Param("book")Book book);
+
+    void deleteBook(@Param("bid")String bid);
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import service.BookService;
 import service.CategoryService;
-import service.OrderService;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -102,10 +102,18 @@ public class AdminBookController {
 
     @RequestMapping(value = "deleteBook")
     public String deleteBook(Book book,Map<String, Object> map){
+        bookService.deleteBook(book.getBid());
+        if(bookService.bookLoader(book.getBid())==null){
 
         map.put("msg", "刪除图书成功！");
-        return "adminjsps/msg";
+        return "adminjsps/msg";}
+
+            map.put("code", "error");
+            map.put("msg", "刪除图书失败，请检查其关系！");
+            return "adminjsps/msg";
     }
+
+
 
 
     @RequestMapping(value = "addPre")
@@ -167,5 +175,8 @@ public class AdminBookController {
            return "adminjsps/msg";}
 
     }
+
+
+
 
 }

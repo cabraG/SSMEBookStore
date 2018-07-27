@@ -27,19 +27,7 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "/login")
-    public String adminlogin(Admin admin,Map<String, Object> map){
-        Admin sessionadmin=adminService.checkAdminLogin(admin);
-       if(sessionadmin!=null){
-           request.getSession().setAttribute("admin",sessionadmin);
-           return "forward:/admin";
-       }
-        else{
-           map.put("code", "error");
-           map.put("msg", "错了朋友");
-           return "adminjsps/msg";}
 
-    }
     @RequestMapping(value = "/exit")
     public String exit(){
 

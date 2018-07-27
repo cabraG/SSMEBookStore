@@ -5,7 +5,7 @@ import model.CartItem;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/cart")
 public class CartItemController {
 
     @Autowired
@@ -35,7 +36,7 @@ public class CartItemController {
         cartItemService.cartiteminit(cartItem,bid);
 
 
-        return "forward:/mycart";
+        return "forward:/cart/mycart";
     }
 
     //我的购物车
@@ -82,7 +83,7 @@ public class CartItemController {
     public String batchDelete(@RequestParam(name = "cartItemIds")String cartItemIds){
         cartItemService.batchDelete(cartItemIds);
 
-        return "forward:/mycart";
+        return "forward:/cart/mycart";
 }
 
 }

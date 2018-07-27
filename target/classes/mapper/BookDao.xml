@@ -4,7 +4,7 @@
 <!-- 设置为接口方法提供sql语句配置 -->
 <mapper namespace="dao.BookDao">
     <select id="findbookcount" resultType="int">
-        select count(*) from t_book
+        select count(*) from t_book where cid=#{cid}
     </select>
     <resultMap id="BookResultMap" type="Book">
         <id property="bid" column="bid"></id>
@@ -83,4 +83,8 @@
         #{book.printtime},#{book.booksize},#{book.paper},#{book.category.cid},#{book.image_w},#{book.image_b}
         )
     </insert>
+
+    <delete id="deleteBook" parameterType="String">
+        delete from t_book where bid=#{bid}
+    </delete>
 </mapper>
